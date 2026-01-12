@@ -1,23 +1,36 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Database\Seeders;
 
 use App\Models\User;
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
 {
+    use WithoutModelEvents;
+
     /**
      * Seed the application's database.
      */
     public function run(): void
     {
-        // User::factory(10)->create();
-
         User::factory()->create([
             'name' => 'Test User',
             'email' => 'test@example.com',
         ]);
+
+        $this->call(WorldSeeder::class);
+        $this->call(PaymentTermSeeder::class);
+        $this->call(LocaleSeeder::class);
+        $this->call(NumberSequenceSeeder::class);
+        $this->call(ProductSeeder::class);
+        $this->call(EmailPlaceholderSeeder::class);
+
+        // This should be the last and only needed in test
+        $this->call(CustomerSeeder::class);
+        $this->call(InvoiceSeeder::class);
     }
 }
